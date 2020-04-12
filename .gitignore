@@ -1,0 +1,11 @@
+*-debug.log
+*-error.log
+.eslintignore
+.eslintrc
+.editorconfig
+/.nyc_output
+/dist
+/lib
+/tmp
+/yarn.lock
+node_modules
