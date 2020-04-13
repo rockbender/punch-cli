@@ -1,9 +1,12 @@
 import {Command} from '@oclif/command';
 import '../Extensions/DateExtension';
+import * as chalk from 'chalk';
 
-export class GoodbyeCommand extends Command {
+export class InCommand extends Command {
   async run() {
     const now = new Date();
-    console.log(`Welcome, punching in at ${now.formattedDateTime()} \n` );
+    const log = console.log;
+
+    log(`Welcome, punching in at ${chalk.green(now.formattedDateTime())}`);
   }
 }
