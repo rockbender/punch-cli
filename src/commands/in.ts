@@ -27,7 +27,8 @@ export class InCommand extends Command {
       this.doPunchIn(now);
     } else {
       if(currentSession != null) {
-        this.log(`Current session running since, ${chalk.green(currentSession.StartDateTime)}. To reset, type in ${chalk.blue('punch in -f')}`);
+        let startDateTime = new Date(currentSession.StartDateTime);
+        this.log(`Current session running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
       } else {
         this.doPunchIn(now);
       }

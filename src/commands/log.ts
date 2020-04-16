@@ -14,6 +14,11 @@ export class LogCommand extends Command {
       sessionLogs = logs;
     });
 
+    sessionLogs.map(log => {
+      log.StartDateTime = (new Date(log.StartDateTime).formattedDateTime());
+      log.EndDateTime = (new Date(log.EndDateTime).formattedDateTime());
+    });
+
     console.log('Session Logs: \n', sessionLogs);
   }
 }
