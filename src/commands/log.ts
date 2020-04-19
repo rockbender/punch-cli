@@ -19,6 +19,8 @@ export class LogCommand extends Command {
       log.EndDateTime = (new Date(log.EndDateTime).formattedDateTime());
     });
 
+    this._db.close();
+
     console.log('Session Logs: \n', sessionLogs);
   }
 }

@@ -65,7 +65,7 @@ export class DataService extends CoreDataService {
                 let currentSession: ISession = this.getSession();
                 let stmt = this.dbo.prepare(`INSERT INTO ${DbTables.SessionLog.Name}(
                     StartDateTime, EndDateTime, Duration, Notes) VALUES(?, ?, ?, ?)`);
-                    
+
                 const st = moment(currentSession.StartDateTime);
                 const et = moment(date.toISOString());
 
@@ -89,12 +89,12 @@ export class DataService extends CoreDataService {
     }
 
     close(): void {
-        this.dbo.close((err: any) => {
-            if(err) {
-                console.log('Failed to close the database ', err);
-            } else {
-                console.log('Closed the database connection.');
-            }
-        });
+        try {
+            this.dbo.close();
+            console.log('Closed db connection');
+        }
+        catch(err) {
+            console.log('Failed to close connection ', err);
+        }
     }
 }

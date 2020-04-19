@@ -6,7 +6,7 @@ const Database = require('better-sqlite3');
 
 /*
  * Description:
- * This file is for app's first run and disaster recovery in case db becomes corrupt
+ * Core Database support, makes dbo available and disaster recovery in case db becomes corrupt
  */
 export class CoreDataService {
     
@@ -45,7 +45,7 @@ export class CoreDataService {
     }
 
     /*
-    * Create a new db, create required table and set dbo.
+    * Create a new db with tables and set dbo.
     */
     private setupAndOpenDbConnection(): void {
         try {
@@ -81,7 +81,7 @@ export class CoreDataService {
     /*
      * NOTE: Is only an algorithm right now
      * Perhaps its better to just recreate db regardless?
-     * Do a check on the database, and resolve issue. This is an expensive call
+     * Do a check on the database, and resolve issue. This could pontentially become an expensive call
      */
     private healthCheckDb(): void {
         // if(db exists) {
@@ -108,13 +108,5 @@ export class CoreDataService {
      */
     private feedTestData(): void {
         throw new Error('Method not Implemented');
-    }
-
-    /*
-    * Close the database connection
-    */
-    public closeDbConnection(): void {
-        this.dbo.close();
-        console.log('Closed db connection');
     }
 }
