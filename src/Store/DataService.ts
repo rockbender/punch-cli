@@ -5,7 +5,7 @@ import moment = require('moment');
 export class DataService extends CoreDataService {
     
     constructor() {
-        super();    //Call the base class which does sets the dbo
+        super();    //Call the base class which sets the dbo
     }
 
     getSession(): ISession {

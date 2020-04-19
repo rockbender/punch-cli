@@ -1,7 +1,4 @@
 import { DbTables, Table } from './Schemas/Tables';
-import { boolean } from '@oclif/command/lib/flags';
-// const sqlite3 = require('sqlite3').verbose();
-// import sqlite3 = require('better-sqlite3');
 const Database = require('better-sqlite3');
 
 /*
