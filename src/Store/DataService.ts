@@ -28,7 +28,7 @@ export class DataService extends CoreDataService {
         let result: ISessionLog[] = [];
         
         try {
-            const stmt = this.dbo.prepare(`SELECT * FROM ${DbTables.SessionLog.Name}`);
+            const stmt = this.dbo.prepare(`SELECT * FROM ${DbTables.SessionLog.Name} order by id desc`);
             result = stmt.all();
         }
         catch(err) {
