@@ -15,31 +15,27 @@ export class InCommand extends Command {
   async run() {
     
     const {args, flags} = this.parse(InCommand);
+
     const now = new Date();
-    
-    // let currentSession: ISession = null as unknown as ISession;
+    const currentSession: ISession = this._db.getSession();
 
-    // await this._db.getSession().then((data: ISession) => {
-    //   currentSession = data;
-    // });
-
-    // if(flags.force) {
-    //   this.doPunchIn(now);
-    // } else {
-    //   if(currentSession != null) {
-    //     let startDateTime = new Date(currentSession.StartDateTime);
-    //     this.log(`Current session running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
-    //   } else {
-    //     this.doPunchIn(now);
-    //   }
-    // }
+    if(flags.force) {
+      this.doPunchIn(now);
+    } else {
+      if(currentSession != null) {
+        let startDateTime = new Date(currentSession.StartDateTime);
+        this.log(`Session running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
+      } else {
+        this.doPunchIn(now);
+      }
+    }
 
     this._db.close();
   }
 
   doPunchIn(date: Date) {
     this._db.addSession(date);
-    this.log(`Welcome, punching in at ${chalk.green(date.formattedDateTime())}`);
+    this.log(`Welcome, session started at ${chalk.green(date.formattedDateTime())}`);
   }
 
 }

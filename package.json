@@ -14,11 +14,11 @@
     "better-sqlite3": "^6.0.1",
     "chalk": "^4.0.0",
     "moment": "^2.24.0",
-    "sqlite3": "^4.1.1",
     "tslib": "^1.11.1"
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1.22.2",
+    "@types/better-sqlite3": "^5.4.0",
     "@types/node": "^10.17.19",
     "eslint": "^5.16.0",
     "eslint-config-oclif": "^3.1.0",

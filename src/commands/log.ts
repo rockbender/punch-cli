@@ -9,10 +9,10 @@ export class LogCommand extends Command {
   _db = new DataService();
 
   async run() {
-    let sessionLogs: ISessionLog[] = [];
-    await this._db.getSessionLogs().then((logs: ISessionLog[]) => {
-      sessionLogs = logs;
-    });
+
+    const {args, flags} = this.parse(LogCommand);
+
+    const sessionLogs: ISessionLog[] = this._db.getSessionLogs();
 
     sessionLogs.map(log => {
       log.StartDateTime = (new Date(log.StartDateTime).formattedDateTime());

@@ -11,19 +11,17 @@ export class OutCommand extends Command {
   _db = new DataService();
   
   async run() {
+
+    const {args, flags} = this.parse(OutCommand);
+
     const now = new Date();
+    const currentSession: ISession = this._db.getSession();
 
-    let currentSession: ISession = null as unknown as ISession;
-
-    await this._db.getSession().then((data: ISession) => {
-      currentSession = data;
-    });
-
-    this.getDuration(now, now);
+    // this.getDuration(now, now);
 
     if(currentSession != null) {
       this._db.endSession(now);
-      this.log(`Ended session at ${chalk.green(now.formattedDateTime())}.`)
+      this.log(`Session ended at ${chalk.green(now.formattedDateTime())}.`)
     } else {
       this.log('No active session found. type punch in to start a new session.')
     }

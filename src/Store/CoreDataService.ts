@@ -1,6 +1,8 @@
 import { DbTables, Table } from './Schemas/Tables';
-const sqlite3 = require('sqlite3').verbose();
+import { boolean } from '@oclif/command/lib/flags';
+// const sqlite3 = require('sqlite3').verbose();
 // import sqlite3 = require('better-sqlite3');
+const Database = require('better-sqlite3');
 
 /*
  * Description:
@@ -16,24 +18,48 @@ export class CoreDataService {
     constructor() {
         console.log('Running Core data service...');
 
-        console.log('1');
-        this.openOrCreateDb();
-        console.log('4');
+        if(!this.canOpenConnectionStrict()) {
+            this.setupAndOpenDbConnection();
+        }
     }
 
     /*
-    * Open db if exists or else create one and then open a connection to it.
-    */
-    private openOrCreateDb(): void {
-        this.dbo = new sqlite3.Database(this.DB_NAME, sqlite3.OPEN_READWRITE | sqlite3.OPEN_CREATE, (err: any) => {
-            if(err) {
-                console.log('2. Failed to create a new database. ', err);
-            } else {
-                console.log('2. Created database.');
-            }
+     * Attempt to open db connection only if db exists.
+     * If Db exists then dbo is set otherwise we must call setupAndOpenDbConnection().
+     */
+    private canOpenConnectionStrict(): boolean {
+        try
+        {
+            this.dbo = Database(this.DB_NAME, {fileMustExist: true, verbose: (data: any) => {
+                console.log('checkDbExists log', data);
+            }});
 
-            console.log('3');
-        });
+            console.log('Db found, connection opened.');
+            return true;
+        }
+        catch(err) {
+            console.log('Db not found.');
+        }
+
+        return false;
+    }
+
+    /*
+    * Create a new db, create required table and set dbo.
+    */
+    private setupAndOpenDbConnection(): void {
+        try {
+            this.dbo = Database(this.DB_NAME, {verbose: (data: any) => {
+                console.log('db logger ', data);
+            }});
+
+            console.log('Created new db.');
+
+            this.createTables();
+        }
+        catch(err) {
+            console.log('Unable to create/open db.');
+        }
     }
 
     /*
@@ -41,13 +67,14 @@ export class CoreDataService {
     */
     private createTables(): void {
         this.DB_TABLES.forEach((table) => {
-            this.dbo.exec(table.Schema, (err: any) => {
-                if(err) {
-                    console.log(`Failed to create table ${table.Name}, error ${err.message}`);
-                } else {
-                    console.log('Created table ', table.Name);
-                }
-            });
+            let stmt = this.dbo.prepare(table.Schema);
+            try {
+                console.log('Creating table', table.Name);
+                stmt.run();
+            }
+            catch (err) {
+                console.log(`Error creating table ${table.Name}, error: ${err}`);
+            }
         });
     }
 
@@ -87,10 +114,7 @@ export class CoreDataService {
     * Close the database connection
     */
     public closeDbConnection(): void {
-        this.dbo.close((err: any) => {
-            if(err) {
-                console.log('Failed to close db connection ', err.message);
-            }
-        });
+        this.dbo.close();
+        console.log('Closed db connection');
     }
 }

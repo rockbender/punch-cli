@@ -1,95 +1,87 @@
-import { resolve } from 'dns';
-import { rejects } from 'assert';
 import { CoreDataService } from './CoreDataService';
-
-const sqlite3 = require('sqlite3').verbose();
+import { DbTables } from './Schemas/Tables';
 
 export class DataService extends CoreDataService {
     
     constructor() {
-        
         super();    //Call the base class which does sets the dbo
-
-        console.log('DBO is ', this.dbo);
     }
 
-    async getSession(): Promise<ISession> {
-        const promise = new Promise<ISession>((resolve, reject) => {
-            this.dbo.get('SELECT * FROM SESSION', [], (err: any, result: ISession) => {
-                if(err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            });
-        })
+    getSession(): ISession {
 
-        return promise;
+        let result: ISession = null as unknown as ISession;
+
+        try {
+            let stmt = this.dbo.prepare(`SELECT * FROM ${DbTables.Session.Name}`);
+            result = stmt.get();
+        }
+        catch(err) {
+            console.log('Error getting session ', err);
+        }
+
+        return result;
     }
 
-    async getSessionLogs(): Promise<ISessionLog[]> {
-        const promise = new Promise<ISessionLog[]>((resolve, reject) => {
-            this.dbo.all('SELECT * FROM SESSIONLOG', [], (err: any, result: ISessionLog[]) => {
-                if(err) {
-                    reject(err);
-                } else {
-                    resolve(result);
-                }
-            });
-        })
+    getSessionLogs(): ISessionLog[] {
 
-        return promise;
+        let result: ISessionLog[] = [];
+        
+        try {
+            const stmt = this.dbo.prepare(`SELECT * FROM ${DbTables.SessionLog.Name}`);
+            result = stmt.all();
+        }
+        catch(err) {
+            console.log('Error getting session logs ', err);
+        }
+
+        return result;
     }
 
     addSession(date: Date): void {
-        const promise = new Promise<ISession>((resolve, reject) => {
-            this.dbo.serialize(() => {
-                this.dbo
-                .run('DELETE FROM SESSION')
-                .run(`INSERT INTO SESSION VALUES('${date.toISOString()}', '', '')`)
-                .each('SELECT * FROM SESSION', (err: any, row: any) => {
-                    if(err) {
-                        console.log('Error Starting a new session ', err);
-                        reject();
-                    } else {
-                        resolve();
-                    }
-                })
-            });
-        });
+        let stmt: any;
+
+        try {
+            console.log('Session (before)', this.getSession());
+
+            stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
+            stmt.run();
+
+            stmt = this.dbo.prepare(`INSERT INTO ${DbTables.Session.Name} VALUES(?, ?, ?)`);
+            stmt.run(date.toISOString(), '', '');
+
+            console.log('Session (after)', this.getSession());
+        }
+        catch(err) {
+            console.log('Error throw while adding a new session ', err);
+        }
     }
 
     endSession(date: Date): void {
-        let session: ISession;
-        const promise = new Promise((resolve, reject) => {
-            this.dbo.serialize(() => {
-                this.dbo.all('SELECT * FROM SESSION', (err: any, rows: ISession[]) => {
-                    if(rows.length > 0) {
-                        this.dbo.run(`INSERT INTO SESSIONLOG(StartDateTime, EndDateTime, Notes) 
-                        VALUES (
-                            '${rows[0].StartDateTime}',
-                            '${date.toISOString()}',
-                            '${rows[0].Notes}'
-                        )`, (err: any) => {
-                            if(err) {
-                                console.log("Inserting into SessionLog threw error ", err);
-                                reject();
-                            } else {
-                                resolve();
-                            }
-                        })
-                    }
-                }).run('DELETE FROM SESSION', (err: any) => {
-                    if(err) {
-                        console.log('Error clearing session.');
-                        reject();
-                    } else {
-                        resolve();
-                    }
-                })
-            })
-        })
-    };
+        const trans = this.dbo.transaction(() => {
+            console.log('Transaction started');
+
+            try {
+                let currentSession: ISession = this.getSession();
+                let stmt = this.dbo.prepare(`INSERT INTO ${DbTables.SessionLog.Name}(StartDateTime, EndDateTime, Notes) VALUES(?, ?, ?)`);
+
+                stmt.run(currentSession.StartDateTime, date.toISOString(), currentSession.Notes);
+
+                stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
+                stmt.run();
+            }
+            catch(err) {
+                if(!this.dbo.inTransaction) {
+                    console.log('Transaction abruptly ended with error ', err);
+                } else {
+                    console.log('Transaction failed without rolling back.');
+                }
+            }
+
+            console.log('Transaction ended');
+        });
+
+        trans();
+    }
 
     close(): void {
         this.dbo.close((err: any) => {
