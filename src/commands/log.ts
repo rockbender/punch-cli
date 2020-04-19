@@ -21,6 +21,6 @@ export class LogCommand extends Command {
 
     this._db.close();
 
-    console.log('Session Logs: \n', sessionLogs);
+    console.table(sessionLogs);
   }
 }
