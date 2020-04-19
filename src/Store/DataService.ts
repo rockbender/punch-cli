@@ -1,25 +1,21 @@
 import { resolve } from 'dns';
 import { rejects } from 'assert';
+import { CoreDataService } from './CoreDataService';
 
 const sqlite3 = require('sqlite3').verbose();
 
-export class DataService {
+export class DataService extends CoreDataService {
     
-    _db: any;
-
     constructor() {
-        this._db = new sqlite3.Database('punch.db', (error: any) => {
-            if(error) {
-                console.log('Error opening the db.')
-            } else {
-                // console.log('Successfully connected to the db.');
-            }
-        });
+        
+        super();    //Call the base class which does sets the dbo
+
+        console.log('DBO is ', this.dbo);
     }
 
     async getSession(): Promise<ISession> {
         const promise = new Promise<ISession>((resolve, reject) => {
-            this._db.get('SELECT * FROM SESSION', [], (err: any, result: ISession) => {
+            this.dbo.get('SELECT * FROM SESSION', [], (err: any, result: ISession) => {
                 if(err) {
                     reject(err);
                 } else {
@@ -33,7 +29,7 @@ export class DataService {
 
     async getSessionLogs(): Promise<ISessionLog[]> {
         const promise = new Promise<ISessionLog[]>((resolve, reject) => {
-            this._db.all('SELECT * FROM SESSIONLOG', [], (err: any, result: ISessionLog[]) => {
+            this.dbo.all('SELECT * FROM SESSIONLOG', [], (err: any, result: ISessionLog[]) => {
                 if(err) {
                     reject(err);
                 } else {
@@ -47,8 +43,8 @@ export class DataService {
 
     addSession(date: Date): void {
         const promise = new Promise<ISession>((resolve, reject) => {
-            this._db.serialize(() => {
-                this._db
+            this.dbo.serialize(() => {
+                this.dbo
                 .run('DELETE FROM SESSION')
                 .run(`INSERT INTO SESSION VALUES('${date.toISOString()}', '', '')`)
                 .each('SELECT * FROM SESSION', (err: any, row: any) => {
@@ -66,10 +62,10 @@ export class DataService {
     endSession(date: Date): void {
         let session: ISession;
         const promise = new Promise((resolve, reject) => {
-            this._db.serialize(() => {
-                this._db.all('SELECT * FROM SESSION', (err: any, rows: ISession[]) => {
+            this.dbo.serialize(() => {
+                this.dbo.all('SELECT * FROM SESSION', (err: any, rows: ISession[]) => {
                     if(rows.length > 0) {
-                        this._db.run(`INSERT INTO SESSIONLOG(StartDateTime, EndDateTime, Notes) 
+                        this.dbo.run(`INSERT INTO SESSIONLOG(StartDateTime, EndDateTime, Notes) 
                         VALUES (
                             '${rows[0].StartDateTime}',
                             '${date.toISOString()}',
@@ -96,11 +92,11 @@ export class DataService {
     };
 
     close(): void {
-        this._db.close((err: any) => {
+        this.dbo.close((err: any) => {
             if(err) {
                 console.log('Failed to close the database ', err);
             } else {
-                // console.log('Closed the database connection.');
+                console.log('Closed the database connection.');
             }
         });
     }

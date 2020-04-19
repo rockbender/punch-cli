@@ -17,22 +17,22 @@ export class InCommand extends Command {
     const {args, flags} = this.parse(InCommand);
     const now = new Date();
     
-    let currentSession: ISession = null as unknown as ISession;
+    // let currentSession: ISession = null as unknown as ISession;
 
-    await this._db.getSession().then((data: ISession) => {
-      currentSession = data;
-    });
+    // await this._db.getSession().then((data: ISession) => {
+    //   currentSession = data;
+    // });
 
-    if(flags.force) {
-      this.doPunchIn(now);
-    } else {
-      if(currentSession != null) {
-        let startDateTime = new Date(currentSession.StartDateTime);
-        this.log(`Current session running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
-      } else {
-        this.doPunchIn(now);
-      }
-    }
+    // if(flags.force) {
+    //   this.doPunchIn(now);
+    // } else {
+    //   if(currentSession != null) {
+    //     let startDateTime = new Date(currentSession.StartDateTime);
+    //     this.log(`Current session running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
+    //   } else {
+    //     this.doPunchIn(now);
+    //   }
+    // }
 
     this._db.close();
   }
