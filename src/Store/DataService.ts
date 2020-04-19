@@ -1,5 +1,6 @@
 import { CoreDataService } from './CoreDataService';
 import { DbTables } from './Schemas/Tables';
+import moment = require('moment');
 
 export class DataService extends CoreDataService {
     
@@ -62,9 +63,13 @@ export class DataService extends CoreDataService {
 
             try {
                 let currentSession: ISession = this.getSession();
-                let stmt = this.dbo.prepare(`INSERT INTO ${DbTables.SessionLog.Name}(StartDateTime, EndDateTime, Notes) VALUES(?, ?, ?)`);
+                let stmt = this.dbo.prepare(`INSERT INTO ${DbTables.SessionLog.Name}(
+                    StartDateTime, EndDateTime, Duration, Notes) VALUES(?, ?, ?, ?)`);
+                    
+                const st = moment(currentSession.StartDateTime);
+                const et = moment(date.toISOString());
 
-                stmt.run(currentSession.StartDateTime, date.toISOString(), currentSession.Notes);
+                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'seconds'), currentSession.Notes);
 
                 stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
                 stmt.run();
