@@ -19,7 +19,15 @@ export class OutCommand extends Command {
 
     if(currentSession != null) {
       this._db.endSession(now);
-      this.log(`Session ended at ${chalk.green(now.formattedDateTime())}.`)
+      
+      const startDateTime = new Date(currentSession.StartDateTime);
+      
+      this.log(`\nGoodbye, Session ended. \n`);
+      this.log('Summary:\n');
+      this.log(chalk.cyan('\tDuration:\t'), chalk.cyan('7h 45m'));
+      this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
+      this.log(chalk.green('\tEnd: \t\t'), chalk.green(now.formattedDateTime()));
+
     } else {
       this.log('No active session found. type punch in to start a new session.')
     }

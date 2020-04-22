@@ -42,15 +42,11 @@ export class DataService extends CoreDataService {
         let stmt: any;
 
         try {
-            console.log('Session (before)', this.getSession());
-
             stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
             stmt.run();
 
             stmt = this.dbo.prepare(`INSERT INTO ${DbTables.Session.Name} VALUES(?, ?, ?)`);
             stmt.run(date.toISOString(), '', '');
-
-            console.log('Session (after)', this.getSession());
         }
         catch(err) {
             console.log('Error throw while adding a new session ', err);
@@ -59,8 +55,6 @@ export class DataService extends CoreDataService {
 
     endSession(date: Date): void {
         const trans = this.dbo.transaction(() => {
-            console.log('Transaction started');
-
             try {
                 let currentSession: ISession = this.getSession();
                 let stmt = this.dbo.prepare(`INSERT INTO ${DbTables.SessionLog.Name}(
@@ -69,7 +63,7 @@ export class DataService extends CoreDataService {
                 const st = moment(currentSession.StartDateTime);
                 const et = moment(date.toISOString());
 
-                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'seconds'), currentSession.Notes);
+                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'millisecond'), currentSession.Notes);
 
                 stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
                 stmt.run();
@@ -81,8 +75,6 @@ export class DataService extends CoreDataService {
                     console.log('Transaction failed without rolling back.');
                 }
             }
-
-            console.log('Transaction ended');
         });
 
         trans();
@@ -91,7 +83,6 @@ export class DataService extends CoreDataService {
     close(): void {
         try {
             this.dbo.close();
-            console.log('Closed db connection');
         }
         catch(err) {
             console.log('Failed to close connection ', err);

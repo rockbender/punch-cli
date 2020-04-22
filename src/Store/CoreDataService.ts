@@ -13,8 +13,6 @@ export class CoreDataService {
     dbo: any;
 
     constructor() {
-        console.log('Running Core data service...');
-
         if(!this.canOpenConnectionStrict()) {
             this.setupAndOpenDbConnection();
         }
@@ -28,10 +26,10 @@ export class CoreDataService {
         try
         {
             this.dbo = Database(this.DB_NAME, {fileMustExist: true, verbose: (data: any) => {
-                console.log('checkDbExists log', data);
+                //log here
             }});
 
-            console.log('Db found, connection opened.');
+            // console.log('Db found, connection opened.');
             return true;
         }
         catch(err) {
@@ -47,10 +45,8 @@ export class CoreDataService {
     private setupAndOpenDbConnection(): void {
         try {
             this.dbo = Database(this.DB_NAME, {verbose: (data: any) => {
-                console.log('db logger ', data);
+                // console.log('db logger ', data);
             }});
-
-            console.log('Created new db.');
 
             this.createTables();
         }
@@ -66,7 +62,6 @@ export class CoreDataService {
         this.DB_TABLES.forEach((table) => {
             let stmt = this.dbo.prepare(table.Schema);
             try {
-                console.log('Creating table', table.Name);
                 stmt.run();
             }
             catch (err) {
