@@ -11,7 +11,6 @@ export class OutCommand extends Command {
   _db = new DataService();
   
   async run() {
-
     const {args, flags} = this.parse(OutCommand);
 
     const now = new Date();
@@ -24,7 +23,7 @@ export class OutCommand extends Command {
       
       this.log(`\nGoodbye, Session ended. \n`);
       this.log('Summary:\n');
-      this.log(chalk.cyan('\tDuration:\t'), chalk.cyan('7h 45m'));
+      this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(now)));
       this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
       this.log(chalk.green('\tEnd: \t\t'), chalk.green(now.formattedDateTime()));
 
