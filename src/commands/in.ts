@@ -35,7 +35,7 @@ export class InCommand extends Command {
 
   doPunchIn(date: Date) {
     this._db.addSession(date);
-    this.log(`Welcome, session started at ${chalk.green(date.formattedDateTime())}`);
+    this.log(`\n Welcome, session started at: \n\n\t ${chalk.green(date.formattedDateTime())}`);
   }
 
 }
