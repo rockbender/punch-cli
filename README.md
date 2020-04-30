@@ -31,3 +31,4 @@ USAGE
 - punch In -- Start a new session. -f to restart current session
 - punch out -- End current session
 - punch log -- View historical sessions
+- punch status -- (future) View the current session or the last session
