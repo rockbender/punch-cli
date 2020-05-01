@@ -1,6 +1,7 @@
 import {Command} from '@oclif/command'
 import '../Extensions/DateExtension';
 import { DataService } from '../Store/DataService';
+import { getFormattedDuration } from '../Util/util';
 
 export class LogCommand extends Command {
   
@@ -17,6 +18,7 @@ export class LogCommand extends Command {
     sessionLogs.map(log => {
       log.StartDateTime = (new Date(log.StartDateTime).formattedDateTime());
       log.EndDateTime = (new Date(log.EndDateTime).formattedDateTime());
+      log.Duration = getFormattedDuration(log.Duration as unknown as number);
     });
 
     this._db.close();
