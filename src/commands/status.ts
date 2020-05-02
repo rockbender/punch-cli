@@ -3,6 +3,7 @@ import { DataService } from '../Store/DataService'
 import chalk = require('chalk');
 
 export default class StatusCommand extends Command {
+  
   static description = 'Shows the currently running session. If an active session is not found then the last session summary is shown.';
   static aliases = ['s'];
 
