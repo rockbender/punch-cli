@@ -5,7 +5,8 @@ import chalk = require('chalk');
 
 export class OutCommand extends Command {
   
-  static description = 'End the current session.'
+  static description = 'End the current session.';
+  static aliases = ['o'];
 
   _db = new DataService();
   

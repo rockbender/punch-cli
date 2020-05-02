@@ -5,7 +5,8 @@ import { getFormattedDuration } from '../Util/util';
 
 export class LogCommand extends Command {
   
-  static description = 'View the historical sessions.'
+  static description = 'View the historical sessions.';
+  static aliases = ['l'];
 
   _db = new DataService();
 
