@@ -28,7 +28,79 @@ USAGE
 <!-- usagestop -->
 # Commands
 <!-- commands -->
+* [`punch help [COMMAND]`](#punch-help-command)
+* [`punch in`](#punch-in)
+* [`punch log`](#punch-log)
+* [`punch out`](#punch-out)
+* [`punch status`](#punch-status-file)
+
+## `punch help [COMMAND]`
+
+display help for punch
+
+```
+USAGE
+  $ punch help [COMMAND]
+
+ARGUMENTS
+  COMMAND  command to show help for
+
+OPTIONS
+  --all  see all commands in CLI
+```
+
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
+
+## `punch in`
+
+Start a new work session. Use -f to restart current session.
+
+```
+USAGE
+  $ punch in
+
+OPTIONS
+  -f, --force
+```
+
+_See code: [src\commands\in.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\in.ts)_
+
+## `punch log`
+
+View the historical sessions.
+
+```
+USAGE
+  $ punch log
+```
+
+_See code: [src\commands\log.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\log.ts)_
+
+## `punch out`
+
+End the current session.
+
+```
+USAGE
+  $ punch out
+```
+
+_See code: [src\commands\out.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\out.ts)_
+
+## `punch status [FILE]`
+
+Shows the currently running session. If an active session is not found then the last session summary is shown.
+
+```
+USAGE
+  $ punch status
+
+OPTIONS
+```
+
+_See code: [src\commands\status.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\status.ts)_
+<!-- commandsstop -->
 - punch In -- Start a new session. -f to restart current session
 - punch out -- End current session
 - punch log -- View historical sessions
-- punch status -- (future) View the current session or the last session
+- punch status -- View the current session or the last session
