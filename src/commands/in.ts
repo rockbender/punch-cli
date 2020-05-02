@@ -8,35 +8,43 @@ export class InCommand extends Command {
   static description = 'Start a new work session. Use -f to restart current session.';
   static aliases = ['i'];
   static flags = {
-    force: flags.boolean({char: 'f'}) // (-f, --force)
+    force: flags.boolean({char: 'f'}), // (-f, --force)
+    message: flags.string({char: 'm'}),
   };
-
-  _db = new DataService();
+  
+  private db = new DataService();
+  private flags = this.parse(InCommand).flags;
   
   async run() {
     
-    const {args, flags} = this.parse(InCommand);
-
     const now = new Date();
-    const currentSession: ISession = this._db.getSession();
+    const currentSession: ISession = this.db.getSession();
 
-    if(flags.force) {
+    if (this.flags.force || currentSession == null) {
+
       this.doPunchIn(now);
+
     } else {
-      if(currentSession != null) {
-        let startDateTime = new Date(currentSession.StartDateTime);
-        this.log(`\nSession running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
-      } else {
-        this.doPunchIn(now);
-      }
+      
+      let startDateTime = new Date(currentSession.StartDateTime);
+      this.log(`\nSession running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
+
     }
 
-    this._db.close();
+    this.db.close();
   }
 
   doPunchIn(date: Date) {
-    this._db.addSession(date);
-    this.log(`\n Welcome, session started at: \n\n\t ${chalk.green(date.formattedDateTime())}`);
-  }
 
+    const message = this.flags.message == null ? '' : this.flags.message;
+
+    this.db.addSession(date, message);
+    
+    this.log(`\nWelcome, session started. \n`);
+    this.log(`\tStartDateTime: \t${chalk.green(date.formattedDateTime())}`)
+
+    if(message.length > 0) {
+      this.log(`\tNote: \t\t${chalk.green(message)}`);
+    }
+  }
 }

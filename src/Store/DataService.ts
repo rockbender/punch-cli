@@ -38,7 +38,7 @@ export class DataService extends CoreDataService {
         return result;
     }
 
-    addSession(date: Date): void {
+    addSession(date: Date, msg: string): void {
         let stmt: any;
 
         try {
@@ -46,7 +46,7 @@ export class DataService extends CoreDataService {
             stmt.run();
 
             stmt = this.dbo.prepare(`INSERT INTO ${DbTables.Session.Name} VALUES(?, ?, ?)`);
-            stmt.run(date.toISOString(), '', '');
+            stmt.run(date.toISOString(), '', msg);
         }
         catch(err) {
             console.log('Error throw while adding a new session ', err);
