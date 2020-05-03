@@ -31,6 +31,7 @@ export default class StatusCommand extends Command {
         this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(endDateTime)));
         this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
         this.log(chalk.green('\tEnd: \t\t'), chalk.green(endDateTime.formattedDateTime()));
+        this.log(chalk.green('\tNotes:\t\t'), chalk.green(lastSession.Notes === '' ? '-' : lastSession.Notes));
       }
     } else {
 
@@ -42,6 +43,7 @@ export default class StatusCommand extends Command {
       this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(now)));
       this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
       this.log(chalk.green('\tEnd: \t\t'), chalk.green('-'));
+      this.log(chalk.green('\tNotes:\t\t'), chalk.green(currentSession.Notes === '' ? '-' : currentSession.Notes));
     }
   }
 }

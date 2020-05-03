@@ -26,6 +26,7 @@ export class OutCommand extends Command {
       this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(now)));
       this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
       this.log(chalk.green('\tEnd: \t\t'), chalk.green(now.formattedDateTime()));
+      this.log(chalk.green('\tNotes:\t\t'), chalk.green(currentSession.Notes));
 
     } else {
       this.log('No active session found. type punch in to start a new session.')
