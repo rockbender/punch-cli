@@ -32,7 +32,7 @@ USAGE
 * [`punch in`](#punch-in)
 * [`punch log`](#punch-log)
 * [`punch out`](#punch-out)
-* [`punch status`](#punch-status-file)
+* [`punch status`](#punch-status)
 
 ## `punch help [COMMAND]`
 
@@ -87,7 +87,7 @@ USAGE
 
 _See code: [src\commands\out.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\out.ts)_
 
-## `punch status [FILE]`
+## `punch status`
 
 Shows the currently running session. If an active session is not found then the last session summary is shown.
 
