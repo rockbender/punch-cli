@@ -2,7 +2,7 @@ import { CoreDataService } from './CoreDataService';
 import { DbTables } from './Schemas/Tables';
 import moment = require('moment');
 
-export class DataService extends CoreDataService {
+export default class DataService extends CoreDataService {
     
     constructor() {
         super();    //Call the base class which sets the dbo

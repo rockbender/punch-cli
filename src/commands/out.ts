@@ -1,6 +1,6 @@
 import {Command} from '@oclif/command'
 import '../Extensions/DateExtension';
-import { DataService } from '../Store/DataService';
+import DataService from '../Store/DataService';
 import chalk = require('chalk');
 
 export class OutCommand extends Command {

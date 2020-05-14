@@ -1,7 +1,7 @@
 import {Command, flags} from '@oclif/command';
 import '../Extensions/DateExtension';
 import * as chalk from 'chalk';
-import { DataService } from '../Store/DataService';
+import DataService from '../Store/DataService';
 
 export class InCommand extends Command {
 

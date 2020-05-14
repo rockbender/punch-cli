@@ -1,6 +1,6 @@
 import {Command} from '@oclif/command'
 import '../Extensions/DateExtension';
-import { DataService } from '../Store/DataService';
+import DataService from '../Store/DataService';
 import { getFormattedDuration } from '../Util/util';
 
 export class LogCommand extends Command {

@@ -1,5 +1,5 @@
 import {Command, flags} from '@oclif/command'
-import { DataService } from '../Store/DataService'
+import DataService from '../Store/DataService'
 import chalk = require('chalk');
 
 export default class StatusCommand extends Command {
