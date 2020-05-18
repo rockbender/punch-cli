@@ -20,6 +20,8 @@ describe('test in command', () => {
         })
     });
 
+    //TODO Rishi - When the order of these tests are changed, running suite test fails. Check mock clear works
+
     it('current session expect session not created', async () => {
 
         await InCommand.run([]);
