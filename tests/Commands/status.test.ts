@@ -1,9 +1,9 @@
 
-import StatusCommand from '../../commands/status';
-import DataService from '../../Store/DataService';
+import StatusCommand from '../../src/commands/status';
+import DataService from '../../src/Store/DataService';
 import { mocked } from 'ts-jest/utils';
 
-jest.mock('../../Store/DataService');
+jest.mock('../../src/Store/DataService');
 
 describe('status command tests', () => {
 
