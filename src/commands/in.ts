@@ -3,7 +3,7 @@ import '../Extensions/DateExtension';
 import * as chalk from 'chalk';
 import DataService from '../Store/DataService';
 
-export class InCommand extends Command {
+export default class InCommand extends Command {
 
   static description = 'Start a new work session. Use -f to restart current session.';
   static aliases = ['i'];
