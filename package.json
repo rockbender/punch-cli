@@ -57,9 +57,8 @@
   "repository": "Projects/punch-cli",
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
-    "posttest": "eslint . --ext .ts --config .eslintrc",
     "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
-    "test": "jest",
+    "test": "jest --coverage",
     "version": "oclif-dev readme && git add README.md"
   },
   "types": "lib/index.d.ts"
