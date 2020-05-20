@@ -3,7 +3,7 @@ import '../Extensions/DateExtension';
 import DataService from '../Store/DataService';
 import chalk = require('chalk');
 
-export class OutCommand extends Command {
+export default class OutCommand extends Command {
   
   static description = 'End the current session.';
   static aliases = ['o'];
