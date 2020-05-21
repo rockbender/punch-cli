@@ -3,7 +3,7 @@ import '../Extensions/DateExtension';
 import DataService from '../Store/DataService';
 import { getFormattedDuration } from '../Util/util';
 
-export class LogCommand extends Command {
+export default class LogCommand extends Command {
   
   static description = 'View the historical sessions.';
   static aliases = ['l'];
