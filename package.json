@@ -1,10 +1,15 @@
 {
   "name": "punch-cli",
-  "description": "Personal work time recording cli app",
-  "version": "0.0.0",
-  "author": "'Rishi Gautam'",
+  "version": "1.0.0",
+  "description": "Time Tracking CLI tool.",
+  "author": "Rishi Gautam",
   "bin": {
     "punch": "./bin/run"
+  },
+  "homepage": "https://github.com/Projects/punch-cli",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rockbender/punch-cli.git"
   },
   "bugs": "https://github.com/Projects/punch-cli/issues",
   "dependencies": {
@@ -41,20 +46,23 @@
     "/npm-shrinkwrap.json",
     "/oclif.manifest.json"
   ],
-  "homepage": "https://github.com/Projects/punch-cli",
   "keywords": [
-    "oclif"
+    "oclif",
+    "punch-cli",
+    "punch",
+    "time tracker",
+    "cli tool",
+    "git"
   ],
   "license": "MIT",
   "main": "lib/index.js",
   "oclif": {
-    "commands": "./lib/commands",
     "bin": "punch",
+    "commands": "./lib/commands",
     "plugins": [
       "@oclif/plugin-help"
     ]
   },
-  "repository": "Projects/punch-cli",
   "scripts": {
     "postpack": "rimraf oclif.manifest.json",
     "prepack": "rimraf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
