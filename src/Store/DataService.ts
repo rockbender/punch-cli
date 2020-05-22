@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { CoreDataService } from './CoreDataService';
 import { DbTables } from './Schemas/Tables';
 import moment = require('moment');

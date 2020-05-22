@@ -2,20 +2,18 @@
 import StatusCommand from '../../src/commands/status';
 import DataService from '../../src/Store/DataService';
 import { mocked } from 'ts-jest/utils';
+import Base from '../../src/Util/testBase';
 
 jest.mock('../../src/Store/DataService');
 
 describe('status command tests', () => {
 
-    const dataServiceMock = {
-        getSessionLogs: jest.fn().mockReturnValue([]),
-        getSession: jest.fn().mockReturnValue({
-            StartDateTime: (new Date()).toISOString(),
-            Notes: ''
-        } as ISession)
-    } as unknown as DataService;
+    let dataServiceMock: DataService;
 
     beforeEach(() => {
+
+        dataServiceMock = Base.dataServiceMock;
+
         mocked(DataService).mockImplementation(() => {
             return dataServiceMock
         })
@@ -29,13 +27,22 @@ describe('status command tests', () => {
         expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(0);
     })
 
-    it('session null expect logs called', async () => {
+    it('session null expect logs 0 called', async () => {
 
         dataServiceMock.getSession = jest.fn().mockReturnValue(null);
+        dataServiceMock.getSessionLogs = jest.fn().mockReturnValue([]);
         
         await StatusCommand.run([]);
 
         expect(dataServiceMock.getSession).toBeCalledTimes(1);
         expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(1);
+    })
+
+    it('session null expect logs > 0 and called', async () => {
+        dataServiceMock.getSession = jest.fn().mockReturnValue(null);
+
+        await StatusCommand.run([]);
+
+        expect(dataServiceMock.getSessionLogs).toBeCalledTimes(1);
     })
 }) 

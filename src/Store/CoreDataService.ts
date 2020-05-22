@@ -1,3 +1,5 @@
+/* istanbul ignore file */
+
 import { DbTables, Table } from './Schemas/Tables';
 const Database = require('better-sqlite3');
 
@@ -72,7 +74,7 @@ export class CoreDataService {
 
     /*
      * NOTE: Is only an algorithm right now
-     * Perhaps its better to just recreate db regardless?
+     * Perhaps its better to just recreate db regardless
      * Do a check on the database, and resolve issue. This could pontentially become an expensive call
      */
     private healthCheckDb(): void {
