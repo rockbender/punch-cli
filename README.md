@@ -1,22 +1,23 @@
-punch-cli
-=========
-
-Personal work time recording cli app
-
 [![oclif](https://img.shields.io/badge/cli-oclif-brightgreen.svg)](https://oclif.io)
 [![Version](https://img.shields.io/npm/v/punch-cli.svg)](https://npmjs.org/package/punch-cli)
 [![Downloads/week](https://img.shields.io/npm/dw/punch-cli.svg)](https://npmjs.org/package/punch-cli)
-[![License](https://img.shields.io/npm/l/punch-cli.svg)](https://github.com/Projects/punch-cli/blob/master/package.json)
+[![License](https://img.shields.io/npm/l/punch-cli.svg)](https://github.com/rockbender/punch-cli/blob/master/LICENSE)
 
-<!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+About this project
+=========
+
+A simple CLI tool to track your work time.
+
+# Features
+
+* Track a work shift by punching in/out
+* Add notes to a shift
+* View past shitfs in a tablular format
+
 # Usage
-<!-- usage -->
 ```sh-session
 $ npm install -g punch-cli
-$ punch COMMAND
+$ punch in
 running command...
 $ punch (-v|--version|version)
 punch-cli/0.0.0 win32-x64 node-v12.16.1
