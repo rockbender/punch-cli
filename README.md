@@ -6,11 +6,11 @@
 About this project
 =========
 
-A simple CLI tool to track your work time.
+A simple CLI tool to track your work session.
 
 # Features
 
-* Track a work shift by punching in/out
+* Track a work session by punching in/out
 * Add notes to a shift
 * View past shitfs in a tablular format
 
