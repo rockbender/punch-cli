@@ -1,17 +1,17 @@
 {
   "name": "punch-cli",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Time Tracking CLI tool.",
   "author": "Rishi Gautam",
   "bin": {
     "punch": "./bin/run"
   },
-  "homepage": "https://github.com/Projects/punch-cli",
+  "homepage": "https://github.com/rockbender/punch-cli",
   "repository": {
     "type": "git",
     "url": "https://github.com/rockbender/punch-cli.git"
   },
-  "bugs": "https://github.com/Projects/punch-cli/issues",
+  "bugs": "https://github.com/rockbender/punch-cli/issues",
   "dependencies": {
     "@oclif/command": "^1.5.19",
     "@oclif/config": "^1.14.0",

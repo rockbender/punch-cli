@@ -16,7 +16,6 @@ export default class OutCommand extends Command {
     const now = new Date();
     const currentSession: ISession = this._db.getSession();
 
-    console.log('current session ', currentSession);
     if(currentSession != null) {
       this._db.endSession(now);
       
