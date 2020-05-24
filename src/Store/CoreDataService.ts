@@ -2,6 +2,7 @@
 
 import { DbTables, Table } from './Schemas/Tables';
 const Database = require('better-sqlite3');
+const path = require('path');
 
 /*
  * Description:
@@ -13,8 +14,12 @@ export class CoreDataService {
     readonly DB_TABLES: Table[] = [DbTables.Session, DbTables.SessionLog, DbTables.HealthCheck];
 
     dbo: any;
+    dbPath: '';
 
     constructor() {
+
+        this.dbPath = path.resolve(__dirname, '../data/' + this.DB_NAME);
+
         if(!this.canOpenConnectionStrict()) {
             this.setupAndOpenDbConnection();
         }
@@ -27,7 +32,7 @@ export class CoreDataService {
     private canOpenConnectionStrict(): boolean {
         try
         {
-            this.dbo = Database(this.DB_NAME, {fileMustExist: true, verbose: (data: any) => {
+            this.dbo = Database(this.dbPath, {fileMustExist: true, verbose: (data: any) => {
                 //log here
             }});
 
@@ -46,7 +51,7 @@ export class CoreDataService {
     */
     private setupAndOpenDbConnection(): void {
         try {
-            this.dbo = Database(this.DB_NAME, {verbose: (data: any) => {
+            this.dbo = Database(this.dbPath, {verbose: (data: any) => {
                 // console.log('db logger ', data);
             }});
 
