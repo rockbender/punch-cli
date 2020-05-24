@@ -1,9 +1,9 @@
 import * as moment from 'moment';
 
-export function getFormattedDuration(milliseconds: number): string {
+export function getFormattedDuration(seconds: number): string {
 
-    const hours = moment.utc(moment.duration(milliseconds, "milliseconds").asMilliseconds()).format("H");
-    const mins = moment.utc(moment.duration(milliseconds, "milliseconds").asMilliseconds()).format("mm");
+    const hours = moment.utc(moment.duration(seconds, "seconds").asMilliseconds()).format("H");
+    const mins = moment.utc(moment.duration(seconds, "seconds").asMilliseconds()).format("mm");
 
     return hours !== '0' ? `${hours}h ${mins}m` : `${mins} minutes`;
 }

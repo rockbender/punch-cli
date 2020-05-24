@@ -1,6 +1,7 @@
 export {}
 
 import * as moment from 'moment';
+import { getFormattedDuration } from '../Util/util';
 
 declare global {
     interface Date {
@@ -21,8 +22,5 @@ Date.prototype.duration = function(toDateTime: Date): string {
 
     const seconds = m2.diff(m1, 's');
 
-    const hours = moment.utc(moment.duration(seconds, "seconds").asMilliseconds()).format("H");
-    const mins = moment.utc(moment.duration(seconds, "seconds").asMilliseconds()).format("mm");
-    
-    return hours !== '0' ? `${hours}h ${mins}m` : `${mins} minutes`;
+    return getFormattedDuration(seconds);
 }

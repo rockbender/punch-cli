@@ -65,7 +65,7 @@ export default class DataService extends CoreDataService {
                 const st = moment(currentSession.StartDateTime);
                 const et = moment(date.toISOString());
 
-                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'millisecond'), currentSession.Notes);
+                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'seconds'), currentSession.Notes);
 
                 stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
                 stmt.run();
