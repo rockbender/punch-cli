@@ -1,9 +1,9 @@
 
-import InCommand from '../../src/commands/in';
-import DataService from '../../src/Store/DataService';
+import InCommand from '../../commands/in';
+import DataService from '../../Store/DataService';
 import { mocked } from 'ts-jest/utils';
 
-jest.mock('../../src/Store/DataService');
+jest.mock('../../Store/DataService');
 
 describe('test in command', () => {
     let dataServiceMock = {} as DataService;

@@ -1,4 +1,4 @@
-import '../../src/Extensions/DateExtension';
+import '../../Extensions/DateExtension';
 
 describe('date extension tests', () => {
     it('formattedDateTime test', () => {

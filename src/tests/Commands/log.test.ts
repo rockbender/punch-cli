@@ -1,9 +1,9 @@
-import DataService from '../../src/Store/DataService';
-import Base from '../../src/Util/testBase';
-import LogCommand from '../../src/commands/log';
+import DataService from '../../Store/DataService';
+import Base from '../../Util/testBase';
+import LogCommand from '../../commands/log';
 import { mocked } from 'ts-jest/utils';
 
-jest.mock('../../src/Store/DataService');
+jest.mock('../../Store/DataService');
 
 describe('test log command', () => {
 

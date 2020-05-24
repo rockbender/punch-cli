@@ -1,4 +1,4 @@
-import { getFormattedDuration } from "../../src/Util/util";
+import { getFormattedDuration } from "../../Util/util";
 
 describe('test util functions', () => {
     it('expect only mins', async () => {

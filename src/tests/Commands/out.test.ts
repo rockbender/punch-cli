@@ -1,8 +1,8 @@
-import DataService from '../../src/Store/DataService';
-import OutCommand from '../../src/commands/out';
+import DataService from '../../Store/DataService';
+import OutCommand from '../../commands/out';
 import { mocked } from 'ts-jest/utils';
 
-jest.mock('../../src/Store/DataService');
+jest.mock('../../Store/DataService');
 
 describe('out command test', () => {
 
