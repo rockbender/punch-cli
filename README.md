@@ -62,9 +62,13 @@ USAGE
 
 OPTIONS
   -f, --force
+  -m, --message=message
+
+ALIASES
+  $ punch i
 ```
 
-_See code: [src\commands\in.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\in.ts)_
+_See code: [src\commands\in.ts](https://github.com/rockbender/punch-cli/blob/v1.0.0/src\commands\in.ts)_
 
 ## `punch log`
 
@@ -73,9 +77,12 @@ View the historical sessions.
 ```
 USAGE
   $ punch log
+
+ALIASES
+  $ punch l
 ```
 
-_See code: [src\commands\log.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\log.ts)_
+_See code: [src\commands\log.ts](https://github.com/rockbender/punch-cli/blob/v1.0.0/src\commands\log.ts)_
 
 ## `punch out`
 
@@ -84,9 +91,12 @@ End the current session.
 ```
 USAGE
   $ punch out
+
+ALIASES
+  $ punch o
 ```
 
-_See code: [src\commands\out.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\out.ts)_
+_See code: [src\commands\out.ts](https://github.com/rockbender/punch-cli/blob/v1.0.0/src\commands\out.ts)_
 
 ## `punch status`
 
@@ -96,10 +106,11 @@ Shows the currently running session. If an active session is not found then the 
 USAGE
   $ punch status
 
-OPTIONS
+ALIASES
+  $ punch s
 ```
 
-_See code: [src\commands\status.ts](https://github.com/Projects/punch-cli/blob/v0.0.0/src\commands\status.ts)_
+_See code: [src\commands\status.ts](https://github.com/rockbender/punch-cli/blob/v1.0.0/src\commands\status.ts)_
 <!-- commandsstop -->
 - punch In -- Start a new session. -f to restart current session
 - punch out -- End current session

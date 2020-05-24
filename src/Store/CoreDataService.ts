@@ -18,7 +18,7 @@ export class CoreDataService {
 
     constructor() {
 
-        this.dbPath = path.resolve(__dirname, '../data/' + this.DB_NAME);
+        this.dbPath = path.resolve(__dirname, '../', this.DB_NAME);
 
         if(!this.canOpenConnectionStrict()) {
             this.setupAndOpenDbConnection();
@@ -53,8 +53,9 @@ export class CoreDataService {
             this.dbo = Database(this.dbPath, {verbose: (data: any) => {
                 // Use for debugger;
             }});
-
+            
             this.createTables();
+            console.log('A new database created.');
         }
         catch(err) {
             console.log('Unable to create/open db.');
@@ -69,7 +70,6 @@ export class CoreDataService {
             let stmt = this.dbo.prepare(table.Schema);
             try {
                 stmt.run();
-                console.log('A new database created.');
             }
             catch (err) {
                 console.log(`Error creating table ${table.Name}, error: ${err}`);
