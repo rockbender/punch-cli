@@ -33,14 +33,13 @@ export class CoreDataService {
         try
         {
             this.dbo = Database(this.dbPath, {fileMustExist: true, verbose: (data: any) => {
-                //log here
+                // Use for debugger;
             }});
 
-            // console.log('Db found, connection opened.');
             return true;
         }
         catch(err) {
-            console.log('Db not found.');
+            console.log('Database not found.');
         }
 
         return false;
@@ -52,7 +51,7 @@ export class CoreDataService {
     private setupAndOpenDbConnection(): void {
         try {
             this.dbo = Database(this.dbPath, {verbose: (data: any) => {
-                // console.log('db logger ', data);
+                // Use for debugger;
             }});
 
             this.createTables();
@@ -70,6 +69,7 @@ export class CoreDataService {
             let stmt = this.dbo.prepare(table.Schema);
             try {
                 stmt.run();
+                console.log('A new database created.');
             }
             catch (err) {
                 console.log(`Error creating table ${table.Name}, error: ${err}`);
