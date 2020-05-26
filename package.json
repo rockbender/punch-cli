@@ -1,6 +1,6 @@
 {
   "name": "punch-cli",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Time Tracking CLI tool.",
   "author": "Rishi Gautam",
   "bin": {

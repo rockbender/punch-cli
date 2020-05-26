@@ -1,4 +1,5 @@
 import {Command, flags} from '@oclif/command'
+import '../Extensions/DateExtension';
 import DataService from '../Store/DataService'
 import chalk = require('chalk');
 

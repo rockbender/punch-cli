@@ -82,7 +82,7 @@ ALIASES
   $ punch l
 ```
 
-_See code: [src\commands\log.ts](https://github.com/rockbender/punch-cli/blob/v1.02/src\commands\log.ts)_
+_See code: [src\commands\log.ts](https://github.com/rockbender/punch-cli/blob/v1.0.2/src\commands\log.ts)_
 
 ## `punch out`
 
