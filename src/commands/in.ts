@@ -27,7 +27,7 @@ export default class InCommand extends Command {
     } else {
       
       let startDateTime = new Date(currentSession.StartDateTime);
-      this.log(`\nSession running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.blue('punch in -f')}`);
+      this.log(`\nSession running since, ${chalk.green(startDateTime.formattedDateTime())}. To reset, type in ${chalk.magenta('punch in -f')}`);
 
     }
 

@@ -29,7 +29,7 @@ export default class StatusCommand extends Command {
         const startDateTime = new Date(lastSession.StartDateTime);
         const endDateTime = new Date(lastSession.EndDateTime);
 
-        this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(endDateTime)));
+        this.log(chalk.magenta('\tDuration:\t'), chalk.magenta(startDateTime.duration(endDateTime)));
         this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
         this.log(chalk.green('\tEnd: \t\t'), chalk.green(endDateTime.formattedDateTime()));
         this.log(chalk.green('\tNotes:\t\t'), chalk.green(lastSession.Notes === '' ? '-' : lastSession.Notes));
@@ -41,7 +41,7 @@ export default class StatusCommand extends Command {
       const now = new Date();
       const startDateTime = new Date(currentSession.StartDateTime);
 
-      this.log(chalk.cyan('\tDuration:\t'), chalk.cyan(startDateTime.duration(now)));
+      this.log(chalk.magenta('\tDuration:\t'), chalk.magenta(startDateTime.duration(now)));
       this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
       this.log(chalk.green('\tEnd: \t\t'), chalk.green('-'));
       this.log(chalk.green('\tNotes:\t\t'), chalk.green(currentSession.Notes === '' ? '-' : currentSession.Notes));

@@ -14,17 +14,28 @@ A simple CLI tool to track your work session.
 * Add notes to a shift
 * View past shitfs in a tablular format
 
+# Dependency
+The application requires npm-gyp to be available. For Windows users, please follow this guide [here](https://www.npmjs.com/package/node-gyp) for installation instructions.
+
+# Feedback
+Feel free to leave me feedback at _fewmints@gmail.com_. To report issues, do so at [Github](https://github.com/rockbender/punch-cli/issues).
+
 # Usage
 ```sh-session
-$ npm install -g punch-cli
+Installing
+$ npm install punch-cli -g
+
+Start a new session
 $ punch in
-running command...
-$ punch (-v|--version|version)
-punch-cli/0.0.0 win32-x64 node-v12.16.1
+
+End a session
+$ punch out
+
+View the current/last session
+$ punch status
+
+For available switches and aliases
 $ punch --help [COMMAND]
-USAGE
-  $ punch COMMAND
-...
 ```
 <!-- usagestop -->
 # Commands
@@ -37,7 +48,7 @@ USAGE
 
 ## `punch help [COMMAND]`
 
-display help for punch
+display help for punch commands
 
 ```
 USAGE
@@ -50,11 +61,9 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
-_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
-
 ## `punch in`
 
-Start a new work session. Use -f to restart current session.
+Start a new session. Use -f to restart current session.
 
 ```
 USAGE
@@ -68,11 +77,9 @@ ALIASES
   $ punch i
 ```
 
-_See code: [src\commands\in.ts](https://github.com/rockbender/punch-cli/blob/v1.0.2/src\commands\in.ts)_
-
 ## `punch log`
 
-View the historical sessions.
+View the list of past sessions.
 
 ```
 USAGE
@@ -81,8 +88,6 @@ USAGE
 ALIASES
   $ punch l
 ```
-
-_See code: [src\commands\log.ts](https://github.com/rockbender/punch-cli/blob/v1.0.2/src\commands\log.ts)_
 
 ## `punch out`
 
@@ -96,8 +101,6 @@ ALIASES
   $ punch o
 ```
 
-_See code: [src\commands\out.ts](https://github.com/rockbender/punch-cli/blob/v1.0.2/src\commands\out.ts)_
-
 ## `punch status`
 
 Shows the currently running session. If an active session is not found then the last session summary is shown.
@@ -110,7 +113,6 @@ ALIASES
   $ punch s
 ```
 
-_See code: [src\commands\status.ts](https://github.com/rockbender/punch-cli/blob/v1.0.2/src\commands\status.ts)_
 <!-- commandsstop -->
 - punch In -- Start a new session. -f to restart current session
 - punch out -- End current session
