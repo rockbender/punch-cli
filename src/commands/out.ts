@@ -23,7 +23,7 @@ export default class OutCommand extends Command {
       
       this.log(`\nGoodbye, Session ended. \n`);
       this.log('Summary:\n');
-      this.log(chalk.magenta('\tDuration:\t'), chalk.magenta(startDateTime.duration(now)));
+      this.log(chalk.yellow('\tDuration:\t'), chalk.yellow(startDateTime.duration(now)));
       this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
       this.log(chalk.green('\tEnd: \t\t'), chalk.green(now.formattedDateTime()));
       this.log(chalk.green('\tNotes:\t\t'), chalk.green(currentSession.Notes));
