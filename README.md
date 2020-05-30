@@ -48,7 +48,7 @@ $ punch --help [COMMAND]
 
 ## `punch help [COMMAND]`
 
-display help for punch commands
+display help for punch
 
 ```
 USAGE
@@ -61,9 +61,11 @@ OPTIONS
   --all  see all commands in CLI
 ```
 
+_See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3/src\commands\help.ts)_
+
 ## `punch in`
 
-Start a new session. Use -f to restart current session.
+Start a new work session. Use -f to restart current session.
 
 ```
 USAGE
@@ -77,9 +79,11 @@ ALIASES
   $ punch i
 ```
 
+_See code: [src\commands\in.ts](https://github.com/rockbender/punch-cli/blob/v1.0.4/src\commands\in.ts)_
+
 ## `punch log`
 
-View the list of past sessions.
+View the historical sessions.
 
 ```
 USAGE
@@ -88,6 +92,8 @@ USAGE
 ALIASES
   $ punch l
 ```
+
+_See code: [src\commands\log.ts](https://github.com/rockbender/punch-cli/blob/v1.0.4/src\commands\log.ts)_
 
 ## `punch out`
 
@@ -101,6 +107,8 @@ ALIASES
   $ punch o
 ```
 
+_See code: [src\commands\out.ts](https://github.com/rockbender/punch-cli/blob/v1.0.4/src\commands\out.ts)_
+
 ## `punch status`
 
 Shows the currently running session. If an active session is not found then the last session summary is shown.
@@ -113,6 +121,7 @@ ALIASES
   $ punch s
 ```
 
+_See code: [src\commands\status.ts](https://github.com/rockbender/punch-cli/blob/v1.0.4/src\commands\status.ts)_
 <!-- commandsstop -->
 - punch In -- Start a new session. -f to restart current session
 - punch out -- End current session
