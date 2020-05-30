@@ -5,7 +5,7 @@ import DataService from '../Store/DataService';
 
 export default class InCommand extends Command {
 
-  static description = 'Start a new work session. Use -f to restart current session.';
+  static description = 'Start a new session. Use -f to restart current session.';
   static aliases = ['i'];
   static flags = {
     force: flags.boolean({char: 'f'}), // (-f, --force)
