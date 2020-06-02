@@ -82,6 +82,16 @@ export default class DataService extends CoreDataService {
         trans();
     }
 
+    updateCurrentSession(msg: string) {
+        try {
+            const stmt = this.dbo.prepare(`UPDATE ${DbTables.Session.Name} SET Notes = '${msg}'`);
+            stmt.run();
+        }
+        catch(err) {
+            console.log('Error thrown while attempting to update an existing session.', err);
+        }
+    }
+
     close(): void {
         try {
             this.dbo.close();

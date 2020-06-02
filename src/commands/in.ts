@@ -10,6 +10,7 @@ export default class InCommand extends Command {
   static flags = {
     force: flags.boolean({char: 'f'}), // (-f, --force)
     message: flags.string({char: 'm'}),
+    amend: flags.string({char: 'a'})
   };
   
   private db = new DataService();
@@ -24,6 +25,26 @@ export default class InCommand extends Command {
 
       this.doPunchIn(now);
 
+    } else if (this.flags.amend) {
+      if(currentSession == null) {
+        this.log('\nNo active session found to amend. Try the command without -a');
+      } else {
+        const message = this.flags.amend == null ? '' : this.flags.amend;
+        this.db.updateCurrentSession(message);
+
+        const currentSession = this.db.getSession();
+
+        this.log('\nCurrent session:\n');
+      
+        const now = new Date();
+        const startDateTime = new Date(currentSession.StartDateTime);
+  
+        this.log(chalk.yellow('\tDuration:\t'), chalk.yellow(startDateTime.duration(now)));
+        this.log(chalk.green('\tStart: \t\t'), chalk.green(startDateTime.formattedDateTime()));
+        this.log(chalk.green('\tEnd: \t\t'), chalk.green('-'));
+        this.log(chalk.green('\tNotes:\t\t'), chalk.green(currentSession.Notes === '' ? '-' : currentSession.Notes));
+
+      }
     } else {
       
       let startDateTime = new Date(currentSession.StartDateTime);
