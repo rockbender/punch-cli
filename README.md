@@ -65,15 +65,16 @@ _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.3
 
 ## `punch in`
 
-Start a new work session. Use -f to restart current session.
+Start a new session. Use -f to restart current session.
 
 ```
 USAGE
   $ punch in
 
 OPTIONS
-  -f, --force
-  -m, --message=message
+  -a, --amend=amend      Amend note to the current seesion. Cannot be used when creating a new session.
+  -f, --force            Force re-start a new session. Discards an active session if found.
+  -m, --message=message  Set note. Can only be used while creating a new session.
 
 ALIASES
   $ punch i
@@ -102,6 +103,9 @@ End the current session.
 ```
 USAGE
   $ punch out
+
+OPTIONS
+  -m, --message=message  Update the notes to the session to be ended.
 
 ALIASES
   $ punch o

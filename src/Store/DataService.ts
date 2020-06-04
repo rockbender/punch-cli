@@ -55,7 +55,7 @@ export default class DataService extends CoreDataService {
         }
     }
 
-    endSession(date: Date): void {
+    endSession(date: Date, msg: string): void {
         const trans = this.dbo.transaction(() => {
             try {
                 let currentSession: ISession = this.getSession();
@@ -64,8 +64,9 @@ export default class DataService extends CoreDataService {
 
                 const st = moment(currentSession.StartDateTime);
                 const et = moment(date.toISOString());
+                const notes = msg !== '' ? msg : currentSession.Notes;
 
-                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'seconds'), currentSession.Notes);
+                stmt.run(currentSession.StartDateTime, date.toISOString(), et.diff(st, 'seconds'), notes);
 
                 stmt = this.dbo.prepare(`DELETE FROM ${DbTables.Session.Name}`);
                 stmt.run();

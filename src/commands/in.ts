@@ -10,7 +10,7 @@ export default class InCommand extends Command {
   static flags = {
     force: flags.boolean({char: 'f', description: 'Force re-start a new session. Discards an active session if found.'}),
     message: flags.string({char: 'm', description: 'Set note. Can only be used while creating a new session.'}),
-    amend: flags.string({char: 'a', description: 'Amend comment to the current seesion. Cannot be used when creating a new session.'})
+    amend: flags.string({char: 'a', description: 'Amend note to the current seesion. Cannot be used when creating a new session.'})
   };
   
   private db = new DataService();
