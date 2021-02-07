@@ -1,42 +1,39 @@
-import DataService from '../../Store/DataService';
-import OutCommand from '../../commands/out';
-import { mocked } from 'ts-jest/utils';
+import DataService from "../../Store/DataService";
+import OutCommand from "../../commands/out";
+import { mocked } from "ts-jest/utils";
 
-jest.mock('../../Store/DataService');
+jest.mock("../../Store/DataService");
 
-describe('out command test', () => {
+describe("out command test", () => {
+  let dataServiceMock = ({
+    getSession: jest.fn().mockReturnValue({
+      StartDateTime: new Date("1992-01-02").toISOString(),
+    }),
+    endSession: jest.fn(),
+    close: jest.fn(),
+  } as unknown) as DataService;
 
-    let dataServiceMock = {
-        getSession: jest.fn().mockReturnValue({
-            StartDateTime: (new Date('1992-01-02')).toISOString()
-        }),
-        endSession: jest.fn(),
-        close: jest.fn()
-    } as unknown as DataService;
-
-    beforeEach(() => {
-        mocked(DataService).mockImplementation(() => {
-            return dataServiceMock
-        });
+  beforeEach(() => {
+    mocked(DataService).mockImplementation(() => {
+      return dataServiceMock;
     });
+  });
 
-    afterEach(() => {
-        jest.clearAllMocks();
-    });
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
 
-    it('session expect endSession called', async () => {
+  it("session expect endSession called", async () => {
+    await OutCommand.run([]);
 
-        await OutCommand.run([]);
-        
-        expect(dataServiceMock.endSession).toBeCalledTimes(1);
-    });
+    expect(dataServiceMock.endSession).toBeCalledTimes(1);
+  });
 
-    it('session null expect endSession not called', async () => {
+  it("session null expect endSession not called", async () => {
+    dataServiceMock.getSession = jest.fn().mockReturnValue(null);
 
-        dataServiceMock.getSession = jest.fn().mockReturnValue(null);
+    await OutCommand.run([]);
 
-        await OutCommand.run([]);
-        
-        expect(dataServiceMock.endSession).toBeCalledTimes(0);
-    });
-})
+    expect(dataServiceMock.endSession).toBeCalledTimes(0);
+  });
+});

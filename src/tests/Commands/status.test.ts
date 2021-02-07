@@ -1,48 +1,43 @@
+import StatusCommand from "../../commands/status";
+import DataService from "../../Store/DataService";
+import { mocked } from "ts-jest/utils";
+import Base from "../../Util/testBase";
 
-import StatusCommand from '../../commands/status';
-import DataService from '../../Store/DataService';
-import { mocked } from 'ts-jest/utils';
-import Base from '../../Util/testBase';
+jest.mock("../../Store/DataService");
 
-jest.mock('../../Store/DataService');
+describe("status command tests", () => {
+  let dataServiceMock: DataService;
 
-describe('status command tests', () => {
+  beforeEach(() => {
+    dataServiceMock = Base.dataServiceMock;
 
-    let dataServiceMock: DataService;
-
-    beforeEach(() => {
-
-        dataServiceMock = Base.dataServiceMock;
-
-        mocked(DataService).mockImplementation(() => {
-            return dataServiceMock
-        })
+    mocked(DataService).mockImplementation(() => {
+      return dataServiceMock;
     });
+  });
 
-    it('session not null expect logs not called', async () => {
+  it("session not null expect logs not called", async () => {
+    await StatusCommand.run([]);
 
-        await StatusCommand.run([]);
+    expect(dataServiceMock.getSession).toBeCalledTimes(1);
+    expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(0);
+  });
 
-        expect(dataServiceMock.getSession).toBeCalledTimes(1);
-        expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(0);
-    })
+  it("session null expect logs 0 called", async () => {
+    dataServiceMock.getSession = jest.fn().mockReturnValue(null);
+    dataServiceMock.getSessionLogs = jest.fn().mockReturnValue([]);
 
-    it('session null expect logs 0 called', async () => {
+    await StatusCommand.run([]);
 
-        dataServiceMock.getSession = jest.fn().mockReturnValue(null);
-        dataServiceMock.getSessionLogs = jest.fn().mockReturnValue([]);
-        
-        await StatusCommand.run([]);
+    expect(dataServiceMock.getSession).toBeCalledTimes(1);
+    expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(1);
+  });
 
-        expect(dataServiceMock.getSession).toBeCalledTimes(1);
-        expect(dataServiceMock.getSessionLogs).toHaveBeenCalledTimes(1);
-    })
+  it("session null expect logs > 0 and called", async () => {
+    dataServiceMock.getSession = jest.fn().mockReturnValue(null);
 
-    it('session null expect logs > 0 and called', async () => {
-        dataServiceMock.getSession = jest.fn().mockReturnValue(null);
+    await StatusCommand.run([]);
 
-        await StatusCommand.run([]);
-
-        expect(dataServiceMock.getSessionLogs).toBeCalledTimes(1);
-    })
-}) 
+    expect(dataServiceMock.getSessionLogs).toBeCalledTimes(1);
+  });
+});

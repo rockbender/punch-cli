@@ -1,5 +1,5 @@
 interface ISession {
-    StartDateTime: string;
-    EndDateTime: string;
-    Notes: string
+  StartDateTime: string;
+  EndDateTime: string;
+  Notes: string;
 }
